@@ -1,0 +1,28 @@
+{
+  "name": "@mws-cloud/mcp",
+  "version": "0.1.0",
+  "description": "MWS Deploy MCP — connect Cursor/Claude to your MWS account. Not Vercel.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "mws-mcp": "./bin/mws-mcp.mjs"
+  },
+  "files": [
+    "bin"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mws-cloud/mws-mcp.git"
+  },
+  "homepage": "https://github.com/mws-cloud/mws-mcp",
+  "keywords": [
+    "mcp",
+    "mws",
+    "deploy",
+    "claude",
+    "cursor"
+  ]
+}
