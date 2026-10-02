@@ -1,48 +1,55 @@
 # MWS Deploy MCP
 
-Remote MCP for MWS customer accounts. Same idea as Vercel (`https://mcp.vercel.com`) and Cloudflare: the agent talks to **your** hosting account.
+Remote MCP for an **MWS customer account**. Same idea as Cloudflare / Vercel MCP: the agent talks to *your* hosting, domains, tickets, and billing. Not a public search tool.
 
-Not a discovery tool. You already have an MWS account.
+- **Remote URL (no install):** `https://app.mws.co.il/mcp`
+- **Docs (Hebrew + English):** https://app.mws.co.il/docs/mcp
+- **This repo (stdio / `npx`):** `npx -y github:mws-cloud/mws-mcp`
+- **עברית:** [README.he.md](./README.he.md)
 
 ## What the agent can do
 
-- List your apps
-- Deploy a **public** GitHub repo to `*.deploy.mws.co.il`
-- Check app status / live URL
+| Area | Tools (examples) |
+| --- | --- |
+| Deploy | list apps, status, deploy / redeploy, build + runtime logs, rollback |
+| GitHub | status, repo list, **one-click GitHub App install** (`install_url`), then private deploy |
+| Billing | invoices, pay link `https://mws.co.il/go.php?c=inv{id}`, plans, quotes |
+| Orders | create order / upgrade / cancel only after `confirm=true`. **Never charges a card** |
+| Account | profile, contacts, credit, entitlements |
+| Domains | list, lock, contacts, EPP, renew invoice, nameservers |
+| DNS / Cloudflare | list / add / update / delete records, CF status + connect |
+| Tickets | list, read, open, reply |
+| WordPress / VPN / affiliate | sites, `wp_action`, panel SSO, VPN, affiliate |
 
-No invoices. No plan purchases. Private Git: connect GitHub in the panel, then `git push`.
+Writes need `confirm=true` after the customer said yes. Pay tools return a link. They never run `payInvoiceCard`.
 
-## 1. Token
+## 1. Website / any agent (OAuth)
 
-In the MWS panel → Settings → create a deploy token (`mws_dk_…`). Copy once.
+Paste this as a custom / remote MCP connector. Browser login to MWS. **No token.**
 
-## 2. Claude.ai / Claude Desktop (remote, like Vercel)
+```
+https://app.mws.co.il/mcp
+```
 
-Custom connector URL:
+Works in Claude, ChatGPT (Connectors), Cursor, Gemini, Copilot, Windsurf, VS Code.
 
-- Prod: `https://app.mws.co.il/mcp`
-- TEST: `https://apptest.mws.co.il/mcp`
+ChatGPT: Settings → Connectors → add the URL. Same endpoint — not a separate GPT plugin.
 
-Auth: request header `Authorization` = `Bearer mws_dk_…`
-
-## 3. Cursor
-
-Paste from Settings (**העתק הגדרת Cursor**) or put this in MCP config, then replace the token:
+## 2. Cursor (JSON)
 
 ```json
 {
   "mcpServers": {
     "mws": {
-      "url": "https://app.mws.co.il/mcp",
-      "headers": {
-        "Authorization": "Bearer mws_dk_YOUR_TOKEN"
-      }
+      "url": "https://app.mws.co.il/mcp"
     }
   }
 }
 ```
 
-## 4. Local stdio (this repo)
+## 3. GitHub / local stdio (this repo)
+
+For agents that only run a local command. Create a deploy token in the MWS panel (Settings): `mws_dk_…`.
 
 ```json
 {
@@ -59,16 +66,11 @@ Paste from Settings (**העתק הגדרת Cursor**) or put this in MCP config, 
 }
 ```
 
-TEST host: `"MWS_API_URL": "https://apptest.mws.co.il"`.
+Same tools as the remote URL. TEST: `"MWS_API_URL": "https://apptest.mws.co.il"`.
 
-## Do you still need the paste-link / CLI?
+## Private GitHub
 
-| Thing | Still needed? |
-|---|---|
-| Token `mws_dk_` | **Yes.** MCP authenticates with it. |
-| `/for-claude` paste link | **Yes** for customers who only chat on claude.ai and will not add a connector. |
-| `mws` CLI | Optional. The agent uses MCP instead of a terminal. |
-| Panel `/new` | **Yes** for private repos and people who click, not agents. |
+`mws_github_status` returns `install_url` → GitHub App (one click). State is bound to the MWS account. After approve, the agent polls until `connected=true`. No extra panel login.
 
 ## License
 

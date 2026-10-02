@@ -1,7 +1,7 @@
 {
   "name": "@mws-cloud/mcp",
-  "version": "0.1.0",
-  "description": "MWS Deploy MCP — connect Cursor/Claude to your MWS account. Not Vercel.",
+  "version": "0.3.1",
+  "description": "MWS Deploy customer MCP. Remote: https://app.mws.co.il/mcp — deploy, GitHub, invoices, domains, DNS, tickets, WordPress. Never charges a card.",
   "type": "module",
   "license": "MIT",
   "bin": {
@@ -23,6 +23,10 @@
     "mws",
     "deploy",
     "claude",
-    "cursor"
+    "chatgpt",
+    "cursor",
+    "github",
+    "wordpress",
+    "israel"
   ]
 }

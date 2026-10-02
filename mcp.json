@@ -1,0 +1,10 @@
+{
+  "name": "mws",
+  "displayName": "MWS Deploy",
+  "description": "MCP for an MWS customer account: deploy, GitHub, invoices, domains, DNS, tickets, WordPress. OAuth at https://app.mws.co.il/mcp",
+  "remote": {
+    "url": "https://app.mws.co.il/mcp"
+  },
+  "homepage": "https://app.mws.co.il/docs/mcp",
+  "repository": "https://github.com/mws-cloud/mws-mcp"
+}
